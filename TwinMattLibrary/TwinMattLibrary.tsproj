@@ -1,5 +1,105 @@
 <?xml version="1.0"?>
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4026.22">
+	<DataTypes>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-000000000041}" TcBaseType="true" HideSubItems="true" CName="AmsNetId">AMSNETID</Name>
+			<BitSize>48</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>6</Elements>
+			</ArrayInfo>
+			<Format>
+				<Printf>%d.%d.%d.%d.%d.%d</Printf>
+				<Parameter>[0]</Parameter>
+				<Parameter>[1]</Parameter>
+				<Parameter>[2]</Parameter>
+				<Parameter>[3]</Parameter>
+				<Parameter>[4]</Parameter>
+				<Parameter>[5]</Parameter>
+			</Format>
+		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-000000000042}" TcBaseType="true" CName="AmsAddr">AMSADDR</Name>
+			<BitSize>64</BitSize>
+			<SubItem>
+				<Name>netId</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+				<BitSize>48</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>port</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>48</BitOffs>
+			</SubItem>
+			<Format>
+				<Printf>%d.%d.%d.%d.%d.%d:%d</Printf>
+				<Parameter>.netId[0]</Parameter>
+				<Parameter>.netId[1]</Parameter>
+				<Parameter>.netId[2]</Parameter>
+				<Parameter>.netId[3]</Parameter>
+				<Parameter>.netId[4]</Parameter>
+				<Parameter>.netId[5]</Parameter>
+				<Parameter>.port</Parameter>
+			</Format>
+			<Format Name="Iec">
+				<Printf>(netId:=[%d.%d.%d.%d.%d.%d], port :=%d)</Printf>
+				<Parameter>.netId[0]</Parameter>
+				<Parameter>.netId[1]</Parameter>
+				<Parameter>.netId[2]</Parameter>
+				<Parameter>.netId[3]</Parameter>
+				<Parameter>.netId[4]</Parameter>
+				<Parameter>.netId[5]</Parameter>
+				<Parameter>.port</Parameter>
+			</Format>
+		</DataType>
+		<DataType>
+			<Name GUID="{33A1B597-0D78-759C-A1DE-33D224F34F3C}" AutoDeleteType="true" ForceIecDecl="true">_3G3AX_MX2_ECT_I_A841956B</Name>
+			<BitSize>128</BitSize>
+			<SubItem>
+				<Name>WcState_WcState</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>WcState_InputToggle</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>InfoData_State</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>InfoData_AdsAddr</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000042}">AMSADDR</Type>
+				<BitSize>64</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{33A1B596-0D78-759C-A1DE-33D224F34F3C}" AutoDeleteType="true" ForceIecDecl="true">_3G3AX_MX2_ECT_A841956B</Name>
+			<BitSize>128</BitSize>
+			<SubItem>
+				<Name>_3G3AX_MX2_ECT_Input</Name>
+				<Type GUID="{33A1B597-0D78-759C-A1DE-33D224F34F3C}">_3G3AX_MX2_ECT_I_A841956B</Type>
+				<BitSize>128</BitSize>
+				<BitOffs>0</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcDataArea</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+		</DataType>
+	</DataTypes>
 	<ImageDatas>
 		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ffffffffffffffffffffffffb4b4b47d7b7da9a5a89ea09daaaaa7bdbdbcf3f3f3ffffffffffffffffffffffffffffffffffffffffffc5c5c54e4e4eb8bab7545a5800000019191c4545550d0d12000000707071eaeae5ffffffffffffffffffffffffd9d9d9727272dcdedc4a464b210b1f272d2358575751514f23232206060600000000000040423db3a7a7fffffffffffff8f8f84a4a4a0000000505024c4e526e6e8030302b1f1f1f1616160000000000000000000000009bdfdffffafaffffffffffff0000005d5d5da0a1a09da29d82827f1010111717170505054545459b9b9b121212000000605858ffffffffffffffffffb6b5b55e615e41434824001d4f38377a7c7a6566650000003e3e3e7f7f7fb6b6b6494141406161fffffffffffffffffffcfffe120b114c150861e78a43fffdb596aa2d1d260000004141418c8c8ca1a2a21c1616abc4c4fffbfbffffffffffffffffffa398b187483d3d842277728fa7919c3233340000004a4a4a989898a5a5a5141616beb6b6fdfefeffffffffffffffffff898a885d6362b3abb6908f8d5d605e5857582a292a0000001e1e1e9fa0a05f4e4e5b9e9effffffffffffffffffffffffaeaeb02f2f493030291010102626264141415e5e5e9999995b5b5b000000000000150404fffffffffffffffffffffffff4f4f33c3c370303040000002727278989895b5b5b262626363636919a9a2a00008fdadafffafaffffffffffffffffffffffffebebeb5c5c5c6161619191918282828484849494948d8d8e201515477c79887676ffffffffffffffffffffffffffffffffffffffffffe4e4e47272725253537d7b7b5256563035346464699691a1f4f5f3ffffffffffffffffffffffffffffffffffffffffffffffffffffffdcdddd8a8888aaadaddaddddfdfdfdffffffffffffffffff</ImageData>
 	</ImageDatas>
@@ -52,11 +152,11 @@
 				<Box Id="1" BoxType="9099" BoxFlags="#x00000020">
 					<Name>Box 1 (3G3AX-MX2-ECT)</Name>
 					<ImageId>1000</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x0c09" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="13" VendorId="#x00000083" ProductCode="#x00000053" RevisionNo="#x00010001" InfoDataAddr="true" DdTime0420="10000" EnableWdDivider0400="true" EnableWdTime0410="true" EnableWdTime0420="true" TimeoutMailbox2="2000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="3G3AX-MX2-ECT EtherCAT Communication Unit for 3G3MX2" Desc="3G3AX-MX2-ECT" PortABoxInfo="#x00ffffff">
+					<EtherCAT SlaveType="2" PdiType="#x0c09" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="13" VendorId="#x00000083" ProductCode="#x00000053" RevisionNo="#x00010001" InfoDataAddr="true" DdTime0420="10000" EnableWdDivider0400="true" EnableWdTime0410="true" EnableWdTime0420="true" TimeoutMailbox2="2000" PortPhys="17" CreateDeviceDataType="true" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="3G3AX-MX2-ECT EtherCAT Communication Unit for 3G3MX2" Desc="3G3AX-MX2-ECT" PortABoxInfo="#x00ffffff">
 						<SyncMan>001810012600010001000000280010011001001826010000</SyncMan>
 						<SyncMan>001c10012200010002000000280010011001001c22010000</SyncMan>
-						<SyncMan>001104006400010003000000000028000000001164010000</SyncMan>
-						<SyncMan>001205002000010004000000000028000000001220010000</SyncMan>
+						<SyncMan>001110006400010003000000000028000000001164010000</SyncMan>
+						<SyncMan>00120d002000010004000000000028000000001220010000</SyncMan>
 						<Fmmu>0000000000000000001100020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001200010100000002000000000000000000000000000000</Fmmu>
 						<MBoxUserCmdData>020003000a00000000000000030000000000000000000000000000000000000020f3100502000000010000</MBoxUserCmdData>
@@ -84,11 +184,19 @@
 								<Type>USINT</Type>
 							</Entry>
 						</Pdo>
-						<Pdo Name="1st transmit PDO Mapping" Index="#x1a00" Flags="#x0000" SyncMan="3"/>
-						<Pdo Name="2nd transmit PDO Mapping" Index="#x1a01" Flags="#x0000" SyncMan="3"/>
-						<Pdo Name="3rd transmit PDO Mapping" Index="#x1a02" Flags="#x0000"/>
-						<Pdo Name="4th transmit PDO Mapping" Index="#x1a03" Flags="#x0000"/>
-						<Pdo Name="5th transmit PDO Mapping" Index="#x1a04" Flags="#x0000"/>
+						<Pdo Name="1st transmit PDO Mapping" Index="#x1a00" Flags="#x0000" SyncMan="3">
+							<Entry Name="d029 Position Command Monitor" Index="#x4010" Sub="#x57">
+								<Type>DINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="2nd transmit PDO Mapping" Index="#x1a01" Flags="#x0000" SyncMan="3">
+							<Entry Name="d030 Current Position Monitor" Index="#x4010" Sub="#x59">
+								<Type>DINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="3rd transmit PDO Mapping" Index="#x1a02" Flags="#x0000" SyncMan="3"/>
+						<Pdo Name="4th transmit PDO Mapping" Index="#x1a03" Flags="#x0000" SyncMan="3"/>
+						<Pdo Name="5th transmit PDO Mapping" Index="#x1a04" Flags="#x0000" SyncMan="3"/>
 						<Pdo Name="257th receive PDO Mapping" Index="#x1700" InOut="1" Flags="#x0010">
 							<ExcludePdo>#x1701</ExcludePdo>
 							<Entry Name="Controlword" Index="#x6040">
@@ -107,12 +215,27 @@
 								<Type>UINT</Type>
 							</Entry>
 						</Pdo>
-						<Pdo Name="1st receive PDO Mapping" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2"/>
-						<Pdo Name="2nd receive PDO Mapping" Index="#x1601" InOut="1" Flags="#x0000" SyncMan="2"/>
-						<Pdo Name="3rd receive PDO Mapping" Index="#x1602" InOut="1" Flags="#x0000"/>
-						<Pdo Name="4th receive PDO Mapping" Index="#x1603" InOut="1" Flags="#x0000"/>
-						<Pdo Name="5th receive PDO Mapping" Index="#x1604" InOut="1" Flags="#x0000"/>
+						<Pdo Name="1st receive PDO Mapping" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2">
+							<Entry Name="P060 Multi step Position Command 0" Index="#x4016" Sub="#x6b">
+								<Type>DINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="2nd receive PDO Mapping" Index="#x1601" InOut="1" Flags="#x0000" SyncMan="2">
+							<Entry Name="F002 1st Acceleration Time 1" Index="#x4011" Sub="#x26">
+								<Type>UDINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="3rd receive PDO Mapping" Index="#x1602" InOut="1" Flags="#x0000" SyncMan="2">
+							<Entry Name="F003 1st Deceleration Time 1" Index="#x4011" Sub="#x28">
+								<Type>UDINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="4th receive PDO Mapping" Index="#x1603" InOut="1" Flags="#x0000" SyncMan="2"/>
+						<Pdo Name="5th receive PDO Mapping" Index="#x1604" InOut="1" Flags="#x0000" SyncMan="2"/>
 						<CoeProfile ProfileNo="65938"/>
+						<PlcDataTypes>
+							<PlcDataType GUID="{33A1B596-0D78-759C-A1DE-33D224F34F3C}">_3G3AX_MX2_ECT_A841956B</PlcDataType>
+						</PlcDataTypes>
 					</EtherCAT>
 				</Box>
 				<EtherCAT/>
