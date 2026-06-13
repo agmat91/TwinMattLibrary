@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="E_MotorStatus" Id="{73a22f07-9b0a-4add-a968-886ecb64f61c}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+
+TYPE E_MotorStatus :
+(
+    eMotorStatus_NotReady := 0,
+    eMotorStatus_Ready := 1,
+    eMotorStatus_Stopped := 2,
+    eMotorStatus_Starting := 3,
+    eMotorStatus_Running := 4,
+    eMotorStatus_Stopping := 5,
+    eMotorStatus_Fault := 6,
+    eMotorStatus_StartTimeout := 7,
+    eMotorStatus_StopTimeout := 8,
+    eMotorStatus_ExternalFault := 9,
+    eMotorStatus_InterlockFault := 10
+);
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

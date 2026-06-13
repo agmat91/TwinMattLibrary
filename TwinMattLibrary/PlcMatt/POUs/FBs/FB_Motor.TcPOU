@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="FB_Motor" Id="{ef65d340-46a1-4e82-ac51-dce45b1722fc}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Motor
+VAR_INPUT
+    i_bEnable           : BOOL;
+    i_bAutoMode         : BOOL;
+    i_bManMode          : BOOL;
+
+    i_bAutoStart        : BOOL;
+    i_bManStart         : BOOL;
+    i_bStop             : BOOL;
+    i_bReset            : BOOL;
+
+    i_bPermissive       : BOOL := TRUE;
+    i_bInterlockOk      : BOOL := TRUE;
+    i_bEmergencyOk      : BOOL := TRUE;
+
+    i_bRunFeedback      : BOOL;
+    i_bExternalFault    : BOOL;
+
+    i_tStartTimeout     : TIME := T#5S;
+    i_tStopTimeout      : TIME := T#5S;
+END_VAR
+
+VAR_OUTPUT
+    o_bRunCmd           : BOOL;
+
+    o_bReady            : BOOL;
+    o_bRunning          : BOOL;
+    o_bStopped          : BOOL;
+    o_bStarting         : BOOL;
+    o_bStopping         : BOOL;
+    o_bFault            : BOOL;
+
+    o_bStartTimeout     : BOOL;
+    o_bStopTimeout      : BOOL;
+    o_bInterlockFault   : BOOL;
+    o_bExternalFault    : BOOL;
+
+    o_eStatus           : E_MotorStatus;
+END_VAR
+
+VAR
+    bStartRequest       : BOOL;
+    bCanRun             : BOOL;
+    bFaultLatched       : BOOL;
+
+    tonStartTimeout     : TON;
+    tonStopTimeout      : TON;
+
+    rtrigReset          : R_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+// ======================================================
+// Reset edge
+// ======================================================
+rtrigReset(CLK := i_bReset);
+
+
+// ======================================================
+// Conditions
+// ======================================================
+bCanRun :=
+    i_bEnable AND
+    i_bPermissive AND
+    i_bInterlockOk AND
+    i_bEmergencyOk AND
+    NOT bFaultLatched;
+
+
+// ======================================================
+// Start request
+// ======================================================
+bStartRequest :=
+    (i_bAutoMode AND i_bAutoStart) OR
+    (i_bManMode AND i_bManStart);
+
+
+// ======================================================
+// Fault handling
+// ======================================================
+o_bExternalFault := i_bExternalFault;
+
+IF i_bExternalFault THEN
+    bFaultLatched := TRUE;
+END_IF
+
+IF NOT i_bInterlockOk THEN
+    o_bInterlockFault := TRUE;
+    bFaultLatched := TRUE;
+END_IF
+
+IF o_bStartTimeout THEN
+    bFaultLatched := TRUE;
+END_IF
+
+IF o_bStopTimeout THEN
+    bFaultLatched := TRUE;
+END_IF
+
+IF rtrigReset.Q THEN
+    IF NOT i_bExternalFault
+    AND i_bInterlockOk
+    AND i_bEmergencyOk THEN
+        bFaultLatched := FALSE;
+        o_bStartTimeout := FALSE;
+        o_bStopTimeout := FALSE;
+        o_bInterlockFault := FALSE;
+    END_IF
+END_IF
+
+
+// ======================================================
+// Run command
+// ======================================================
+IF i_bStop OR NOT i_bEnable OR bFaultLatched THEN
+    o_bRunCmd := FALSE;
+ELSIF bCanRun AND bStartRequest THEN
+    o_bRunCmd := TRUE;
+END_IF
+
+
+// ======================================================
+// Timers
+// ======================================================
+tonStartTimeout(
+    IN := o_bRunCmd AND NOT i_bRunFeedback,
+    PT := i_tStartTimeout
+);
+
+tonStopTimeout(
+    IN := NOT o_bRunCmd AND i_bRunFeedback,
+    PT := i_tStopTimeout
+);
+
+IF tonStartTimeout.Q THEN
+    o_bStartTimeout := TRUE;
+END_IF
+
+IF tonStopTimeout.Q THEN
+    o_bStopTimeout := TRUE;
+END_IF
+
+
+// ======================================================
+// Status bits
+// ======================================================
+o_bFault    := bFaultLatched;
+o_bRunning  := i_bRunFeedback AND NOT o_bFault;
+o_bStopped  := NOT i_bRunFeedback AND NOT o_bRunCmd AND NOT o_bFault;
+o_bStarting := o_bRunCmd AND NOT i_bRunFeedback AND NOT o_bFault;
+o_bStopping := NOT o_bRunCmd AND i_bRunFeedback AND NOT o_bFault;
+o_bReady    := bCanRun AND NOT o_bRunCmd AND NOT i_bRunFeedback;
+
+
+// ======================================================
+// ENUM status
+// ======================================================
+IF o_bExternalFault THEN
+    o_eStatus := E_MotorStatus.eMotorStatus_ExternalFault;
+
+ELSIF o_bInterlockFault THEN
+    o_eStatus := E_MotorStatus.eMotorStatus_InterlockFault;
+
+ELSIF o_bStartTimeout THEN
+    o_eStatus := E_MotorStatus.eMotorStatus_StartTimeout;
+
+ELSIF o_bStopTimeout THEN
+    o_eStatus := E_MotorStatus.eMotorStatus_StopTimeout;
+
+ELSIF o_bFault THEN
+    o_eStatus := E_MotorStatus.eMotorStatus_Fault;
+
+ELSIF o_bRunning THEN
+    o_eStatus := E_MotorStatus.eMotorStatus_Running;
+
+ELSIF o_bStarting THEN
+    o_eStatus := E_MotorStatus.eMotorStatus_Starting;
+
+ELSIF o_bStopping THEN
+    o_eStatus := E_MotorStatus.eMotorStatus_Stopping;
+
+ELSIF o_bReady THEN
+    o_eStatus := E_MotorStatus.eMotorStatus_Ready;
+
+ELSIF o_bStopped THEN
+    o_eStatus := E_MotorStatus.eMotorStatus_Stopped;
+
+ELSE
+    o_eStatus := E_MotorStatus.eMotorStatus_NotReady;
+END_IF
+
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

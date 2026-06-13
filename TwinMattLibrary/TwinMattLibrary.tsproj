@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4026.22">
+	<ImageDatas>
+		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ffffffffffffffffffffffffb4b4b47d7b7da9a5a89ea09daaaaa7bdbdbcf3f3f3ffffffffffffffffffffffffffffffffffffffffffc5c5c54e4e4eb8bab7545a5800000019191c4545550d0d12000000707071eaeae5ffffffffffffffffffffffffd9d9d9727272dcdedc4a464b210b1f272d2358575751514f23232206060600000000000040423db3a7a7fffffffffffff8f8f84a4a4a0000000505024c4e526e6e8030302b1f1f1f1616160000000000000000000000009bdfdffffafaffffffffffff0000005d5d5da0a1a09da29d82827f1010111717170505054545459b9b9b121212000000605858ffffffffffffffffffb6b5b55e615e41434824001d4f38377a7c7a6566650000003e3e3e7f7f7fb6b6b6494141406161fffffffffffffffffffcfffe120b114c150861e78a43fffdb596aa2d1d260000004141418c8c8ca1a2a21c1616abc4c4fffbfbffffffffffffffffffa398b187483d3d842277728fa7919c3233340000004a4a4a989898a5a5a5141616beb6b6fdfefeffffffffffffffffff898a885d6362b3abb6908f8d5d605e5857582a292a0000001e1e1e9fa0a05f4e4e5b9e9effffffffffffffffffffffffaeaeb02f2f493030291010102626264141415e5e5e9999995b5b5b000000000000150404fffffffffffffffffffffffff4f4f33c3c370303040000002727278989895b5b5b262626363636919a9a2a00008fdadafffafaffffffffffffffffffffffffebebeb5c5c5c6161619191918282828484849494948d8d8e201515477c79887676ffffffffffffffffffffffffffffffffffffffffffe4e4e47272725253537d7b7b5256563035346464699691a1f4f5f3ffffffffffffffffffffffffffffffffffffffffffffffffffffffdcdddd8a8888aaadaddaddddfdfdfdffffffffffffffffff</ImageData>
+	</ImageDatas>
+	<Project ProjectGUID="{7B1B0B7A-DBDB-4F3D-BF5C-E7A20CD71E8A}" Target64Bit="true" ShowHideConfigurations="#x6">
+		<System>
+			<Settings MaxCpus="8" NonWinCpus="4" CoresPerPkg="2">
+				<Cpu CpuId="7"/>
+			</Settings>
+			<Tasks>
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+					<Name>PlcTask</Name>
+				</Task>
+			</Tasks>
+		</System>
+		<Plc>
+			<Project GUID="{1A6FE48D-B288-4549-850E-7E97F7FDEA15}" Name="PlcMatt" PrjFilePath="PlcMatt\PlcMatt.plcproj" TmcFilePath="PlcMatt\PlcMatt.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{2962154A-E657-49CE-4608-B4BC47F6B8D9}" TmcPath="PlcMatt\PlcMatt.tmc">
+					<Name>PlcMatt Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+		</Plc>
+		<Io>
+			<Device Id="1" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="10.10.20.20.2.1" RemoteName="Device 1 (EtherCAT)" InfoImageId="2">
+				<Name>Device 1 (EtherCAT)</Name>
+				<AddressInfo>
+					<Pnp>
+						<DeviceDesc></DeviceDesc>
+						<DeviceName></DeviceName>
+						<DeviceData>000000000000</DeviceData>
+					</Pnp>
+				</AddressInfo>
+				<Image Id="1" AddrType="9" ImageType="3">
+					<Name>Image</Name>
+				</Image>
+				<Box Id="1" BoxType="9099" BoxFlags="#x00000020">
+					<Name>Box 1 (3G3AX-MX2-ECT)</Name>
+					<ImageId>1000</ImageId>
+					<EtherCAT SlaveType="2" PdiType="#x0c09" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="13" VendorId="#x00000083" ProductCode="#x00000053" RevisionNo="#x00010001" InfoDataAddr="true" DdTime0420="10000" EnableWdDivider0400="true" EnableWdTime0410="true" EnableWdTime0420="true" TimeoutMailbox2="2000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="3G3AX-MX2-ECT EtherCAT Communication Unit for 3G3MX2" Desc="3G3AX-MX2-ECT" PortABoxInfo="#x00ffffff">
+						<SyncMan>001810012600010001000000280010011001001826010000</SyncMan>
+						<SyncMan>001c10012200010002000000280010011001001c22010000</SyncMan>
+						<SyncMan>001104006400010003000000000028000000001164010000</SyncMan>
+						<SyncMan>001205002000010004000000000028000000001220010000</SyncMan>
+						<Fmmu>0000000000000000001100020100000001000000000000000000000000000000</Fmmu>
+						<Fmmu>0000000000000000001200010100000002000000000000000000000000000000</Fmmu>
+						<MBoxUserCmdData>020003000a00000000000000030000000000000000000000000000000000000020f3100502000000010000</MBoxUserCmdData>
+						<MBoxUserCmdData>020003000900000000000000030000000000000000000000000000000000000020606000010000000200</MBoxUserCmdData>
+						<Pdo Name="257th transmit PDO Mapping" Index="#x1b00" Flags="#x0010">
+							<ExcludePdo>#x1b01</ExcludePdo>
+							<Entry Name="Statusword" Index="#x6041">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="vl velocity demand" Index="#x6043">
+								<Type>INT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="258th transmit PDO Mapping" Index="#x1b01" Flags="#x0010" SyncMan="3">
+							<ExcludePdo>#x1b00</ExcludePdo>
+							<Entry Name="Status" Index="#x5100">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="Output frequency monitor" Index="#x5110">
+								<Type>UINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="512th transmit PDO Mapping" Index="#x1bff" Flags="#x0010" SyncMan="3">
+							<Entry Name="Sysmac Error Status" Index="#x2002" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="1st transmit PDO Mapping" Index="#x1a00" Flags="#x0000" SyncMan="3"/>
+						<Pdo Name="2nd transmit PDO Mapping" Index="#x1a01" Flags="#x0000" SyncMan="3"/>
+						<Pdo Name="3rd transmit PDO Mapping" Index="#x1a02" Flags="#x0000"/>
+						<Pdo Name="4th transmit PDO Mapping" Index="#x1a03" Flags="#x0000"/>
+						<Pdo Name="5th transmit PDO Mapping" Index="#x1a04" Flags="#x0000"/>
+						<Pdo Name="257th receive PDO Mapping" Index="#x1700" InOut="1" Flags="#x0010">
+							<ExcludePdo>#x1701</ExcludePdo>
+							<Entry Name="Controlword" Index="#x6040">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="vl target velocity" Index="#x6042">
+								<Type>INT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="258th receive PDO Mapping" Index="#x1701" InOut="1" Flags="#x0010" SyncMan="2">
+							<ExcludePdo>#x1700</ExcludePdo>
+							<Entry Name="Command" Index="#x5000">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="Frequency reference" Index="#x5010">
+								<Type>UINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="1st receive PDO Mapping" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2"/>
+						<Pdo Name="2nd receive PDO Mapping" Index="#x1601" InOut="1" Flags="#x0000" SyncMan="2"/>
+						<Pdo Name="3rd receive PDO Mapping" Index="#x1602" InOut="1" Flags="#x0000"/>
+						<Pdo Name="4th receive PDO Mapping" Index="#x1603" InOut="1" Flags="#x0000"/>
+						<Pdo Name="5th receive PDO Mapping" Index="#x1604" InOut="1" Flags="#x0000"/>
+						<CoeProfile ProfileNo="65938"/>
+					</EtherCAT>
+				</Box>
+				<EtherCAT/>
+			</Device>
+		</Io>
+	</Project>
+</TcSmProject>

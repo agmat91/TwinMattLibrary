@@ -1,0 +1,23 @@
+{
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.14.4.5/runtimes/native1.12-tchmi/Schema/LocalizationDescription.Schema.json",
+  "locale": "en",
+  "scope": "Server",
+  "source": "TcHmiAlarm",
+  "localizedText": {
+    "L_StartPage": "Start Page",
+    "L_Events": "Events",
+    "L_Localization": "Localization",
+    "L_Theme": "Theme",
+    "L_Settings": "Settings",
+    "L_Page1": "Page1",
+    "L_Page2": "Page2",
+    "L_Page3": "Page3",
+    "L_Page4": "Page4",
+    "L_Page5": "Page5",
+    "ALARM_EM02_BIT01": "0202 Alarm Text",
+    "ALARM_EM01_BIT00": "0100 Alarm Text",
+    "ALARM_EM01_BIT01": "0101 Alarm Text",
+    "WARNING_UN01_BIT00": "0000 Warning Text",
+    "ALARM_EM03_BIT00": "0300 Alarm Text"
+  }
+}

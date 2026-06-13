@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "PopupUc": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "UserControls\\PopupUc.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/PopupUc"
+    },
+    "PopupFacePlate": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "UserControls\\PopupFacePlate.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/PopupFacePlate"
+    },
+    "PopupBtnUc": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "UserControls\\PopupBtnUc.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/PopupBtnUc"
+    }
+  }
+}

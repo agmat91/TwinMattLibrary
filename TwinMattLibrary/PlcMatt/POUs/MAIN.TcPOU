@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="MAIN" Id="{9bd721d4-8c87-4f7c-b207-38976ce48bfd}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	bTest : BOOL;
+	i : LINT;
+	iTest : LINT :=5;
+		
+	Motor1 : REFERENCE TO FB_Motor;
+	Motor2 : REFERENCE TO FB_Motor;	
+	
+	PopupTest1 : REFERENCE TO FB_TestPopup;
+	PopupTest2 : REFERENCE TO FB_TestPopup;
+	
+	WrnAry : ARRAY[0..63] OF BOOL;
+	Alr1Ary : ARRAY[0..63] OF BOOL;
+	Alr2Ary : ARRAY[0..63] OF BOOL;
+	Alr3Ary : ARRAY[0..63] OF BOOL;
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+Motor1 REF= GVL.Motor1;
+Motor2 REF= GVL.Motor2;
+
+
+PopupTest1 REF= GVL.PopupTest1;
+PopupTest2 REF= GVL.PopupTest2;
+
+
+iTest := iTest + 1;
+
+FOR i := 0 TO  iTest DO
+	
+	;
+	//iTest := iTest + 1;
+END_FOR;
+
+
+Motor1();
+Motor2();
+
+PopupTest1();
+PopupTest2();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

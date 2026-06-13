@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <GVL Name="GVL" Id="{7f66a5fd-75bd-49a5-970e-b53ba6bb8e01}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	
+Motor1 : FB_Motor;
+Motor2 : FB_Motor;
+
+PopupTest1 : FB_TestPopup;
+PopupTest2 : FB_TestPopup;
+
+END_VAR
+
+VAR_GLOBAL PERSISTENT
+    nCycleCount : DINT := 0; 
+    fTargetTemperature : REAL := 25.5;
+    bMachineFault : BOOL := FALSE;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,98 @@
+{
+    "alarmSymbols": {
+        "ADS.PLC1.MAIN.Alr1Ary": {
+            "alarmSettings": {
+                "ALARM_EM01_BIT00": {
+                    "alarmTextKey": "ALARM_EM01_BIT00",
+                    "condition": [
+                        {
+                            "comparator": "==",
+                            "path": "[0]",
+                            "value": true
+                        }
+                    ],
+                    "enabled": true,
+                    "notificationType": 0,
+                    "severity": 1
+                },
+                "ALARM_EM01_BIT01": {
+                    "alarmTextKey": "ALARM_EM01_BIT01",
+                    "condition": [
+                        {
+                            "comparator": "==",
+                            "path": "[1]",
+                            "value": true
+                        }
+                    ],
+                    "enabled": true,
+                    "notificationType": 1,
+                    "severity": 3
+                }
+            },
+            "enabled": true,
+            "interval": "PT1S",
+            "onError": false
+        },
+        "ADS.PLC1.MAIN.Alr2Ary": {
+            "alarmSettings": {
+                "ALARM_EM02_BIT01": {
+                    "alarmTextKey": "settingMatch",
+                    "condition": [
+                        {
+                            "comparator": "==",
+                            "path": "[1]",
+                            "value": true
+                        }
+                    ],
+                    "enabled": true,
+                    "notificationType": 2,
+                    "severity": 3
+                }
+            },
+            "enabled": true,
+            "interval": "PT1S",
+            "onError": false
+        },
+        "ADS.PLC1.MAIN.Alr3Ary": {
+            "alarmSettings": {
+                "ALARM_EM03_BIT00": {
+                    "alarmTextKey": "ALARM_EM03_BIT00",
+                    "condition": [
+                        {
+                            "comparator": "==",
+                            "path": "[0]",
+                            "value": true
+                        }
+                    ],
+                    "enabled": true,
+                    "notificationType": 2,
+                    "severity": 3
+                }
+            },
+            "enabled": true,
+            "interval": "PT1S",
+            "onError": false
+        },
+        "ADS.PLC1.MAIN.WrnAry": {
+            "alarmSettings": {
+                "WARNING_UN01_BIT00": {
+                    "alarmTextKey": "WARNING_UN01_BIT00",
+                    "condition": [
+                        {
+                            "comparator": "==",
+                            "path": "[0]",
+                            "value": true
+                        }
+                    ],
+                    "enabled": true,
+                    "notificationType": 1,
+                    "severity": 2
+                }
+            },
+            "enabled": true,
+            "interval": "PT1S",
+            "onError": false
+        }
+    },
+    "limitEventCount": 1000
+}
