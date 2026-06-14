@@ -84,6 +84,65 @@
 			</SubItem>
 		</DataType>
 		<DataType>
+			<Name GUID="{C24F7524-C894-C5E3-4544-2FD48CF904C0}" AutoDeleteType="true">ST_MX2_Outputs</Name>
+			<BitSize>160</BitSize>
+			<SubItem>
+				<Name>uiCommand</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[ Offset 0,  2 bytes]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>uiFrequencyReference</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[ Offset 2,  2 bytes]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>diTargetPosition</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000009}">DINT</Type>
+				<Comment><![CDATA[ Offset 4,  4 bytes, P060]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>32</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>udiAccelerationTime</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[ Offset 8,  4 bytes, F002]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>udiDecelerationTime</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[ Offset 12, 4 bytes, F003]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>96</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>uiCoilData0</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[ Offset 16, 2 bytes]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>128</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>uiOutputTerminalSetting</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[ Offset 18, 2 bytes]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>144</BitOffs>
+			</SubItem>
+			<Properties>
+				<Property>
+					<Name>pack_mode</Name>
+					<Value>1</Value>
+				</Property>
+			</Properties>
+		</DataType>
+		<DataType>
 			<Name GUID="{33A1B596-0D78-759C-A1DE-33D224F34F3C}" AutoDeleteType="true" ForceIecDecl="true">_3G3AX_MX2_ECT_A841956B</Name>
 			<BitSize>128</BitSize>
 			<SubItem>
@@ -99,26 +158,53 @@
 				</Properties>
 			</SubItem>
 		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-002000000008}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BYTE</Name>
+			<BitSize>8</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>1</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-00200000000F}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..14] OF BIT</Name>
+			<BitSize>15</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>15</Elements>
+			</ArrayInfo>
+		</DataType>
 	</DataTypes>
 	<ImageDatas>
 		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ffffffffffffffffffffffffb4b4b47d7b7da9a5a89ea09daaaaa7bdbdbcf3f3f3ffffffffffffffffffffffffffffffffffffffffffc5c5c54e4e4eb8bab7545a5800000019191c4545550d0d12000000707071eaeae5ffffffffffffffffffffffffd9d9d9727272dcdedc4a464b210b1f272d2358575751514f23232206060600000000000040423db3a7a7fffffffffffff8f8f84a4a4a0000000505024c4e526e6e8030302b1f1f1f1616160000000000000000000000009bdfdffffafaffffffffffff0000005d5d5da0a1a09da29d82827f1010111717170505054545459b9b9b121212000000605858ffffffffffffffffffb6b5b55e615e41434824001d4f38377a7c7a6566650000003e3e3e7f7f7fb6b6b6494141406161fffffffffffffffffffcfffe120b114c150861e78a43fffdb596aa2d1d260000004141418c8c8ca1a2a21c1616abc4c4fffbfbffffffffffffffffffa398b187483d3d842277728fa7919c3233340000004a4a4a989898a5a5a5141616beb6b6fdfefeffffffffffffffffff898a885d6362b3abb6908f8d5d605e5857582a292a0000001e1e1e9fa0a05f4e4e5b9e9effffffffffffffffffffffffaeaeb02f2f493030291010102626264141415e5e5e9999995b5b5b000000000000150404fffffffffffffffffffffffff4f4f33c3c370303040000002727278989895b5b5b262626363636919a9a2a00008fdadafffafaffffffffffffffffffffffffebebeb5c5c5c6161619191918282828484849494948d8d8e201515477c79887676ffffffffffffffffffffffffffffffffffffffffffe4e4e47272725253537d7b7b5256563035346464699691a1f4f5f3ffffffffffffffffffffffffffffffffffffffffffffffffffffffdcdddd8a8888aaadaddaddddfdfdfdffffffffffffffffff</ImageData>
+		<ImageData Id="1001">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffecececc8c7c7eeeeeefefefefffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffefefef1f1f0bebebc918f8fa7a6a5f9f9f9fffffffffffffffffffffffffffffffffffffffffffffffffdfdfdf4f4f3dcdddad2d3cfc4c5c2bdbebc9f9f9ef8f8f7ffffffffffffffffffffffffffffffffffffebeaeaededede3e3e1d0d1cdd1d2ced3d4d0bfc1beaaacaacbcccafcfcfcffffffffffffffffffffffffffffffffffffb4b2b1b2b2b1d3d4d0d1d2ced1d2ced4d5d0b8baba8d9492b6bcb6fbfbfaffffffffffffffffffffffffffffffffffffb3b1b0b4b4b1d3d4d0d1d2ced1d2ced5d5d1afb2b27a8180a3a7a2f9faf9ffffffffffffffffffffffffffffffffffffb3b1b0bbbab8d3d4d0d1d2ced1d2ced5d5d1b1b3b1777b7c9b9c9bf9f9f9ffffffffffffffffffffffffffffffffffffb3b1b0bbbab8d3d4d0d1d2ced1d2ced3d4d0c9cac6b9b8b4bfbfbcfafbfaffffffffffffffffffffffffffffffffffffb3b1b0bbbab8d3d4d0d1d2ced1d2cecbcec9c0c3bfcbcac5dad3cefcfcfbffffffffffffffffffffffffffffffffffffb3b1b0b3b3b0d4d5d1c9cac7aeafac939c9895a398b1b8ade7e9e7fefefeffffffffffffffffffffffffffffffffffffb3b1b0aeadabc1c2bfa2a5a16f716d7b7a7ac3c4c0f0f1efffffffffffffffffffffffffffffffffffffffffffffffffb1afaeb5b5b5b3b4b2a3a89fb9beb6e4e4e4fefefeffffffffffffffffffffffffffffffffffffffffffffffffffffffa7a5a5a3a19ec5c4c4eeefeefbfcfbfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5f5f5bfbdb9ebebebffffffffffffffffffffffffffffffffffffffffffffffffffffff</ImageData>
 	</ImageDatas>
 	<Project ProjectGUID="{7B1B0B7A-DBDB-4F3D-BF5C-E7A20CD71E8A}" Target64Bit="true" ShowHideConfigurations="#x6">
 		<System>
-			<Settings MaxCpus="8" NonWinCpus="4" CoresPerPkg="2">
+			<Settings MaxCpus="8" NonWinCpus="4">
 				<Cpu CpuId="7"/>
+				<IoIdleTask CycleTime="100000"/>
 			</Settings>
 			<Tasks>
-				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+				<Task Id="3" Priority="20" CycleTime="1000000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
 				</Task>
 			</Tasks>
 		</System>
 		<Plc>
 			<Project GUID="{1A6FE48D-B288-4549-850E-7E97F7FDEA15}" Name="PlcMatt" PrjFilePath="PlcMatt\PlcMatt.plcproj" TmcFilePath="PlcMatt\PlcMatt.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{02E32775-1EFC-4C4B-386E-E59DECE26836}" TmcPath="PlcMatt\PlcMatt.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{42DEBBF0-FE60-F99F-346E-1DE4B0B02727}" TmcPath="PlcMatt\PlcMatt.tmc">
 					<Name>PlcMatt Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>GVL.MX2_Outputs._3G3AX_MX2_ECT_Output</Name>
+							<Type GUID="{C24F7524-C894-C5E3-4544-2FD48CF904C0}">ST_MX2_Outputs</Type>
+						</Var>
+					</Vars>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
@@ -134,7 +220,7 @@
 								<OTCID>#x02010030</OTCID>
 							</ManualConfig>
 							<Priority>20</Priority>
-							<CycleTime>10000000</CycleTime>
+							<CycleTime>100000000</CycleTime>
 						</Context>
 					</Contexts>
 					<TaskPouOids>
@@ -144,8 +230,8 @@
 			</Project>
 		</Plc>
 		<Io>
-			<Device Id="1" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="10.10.20.20.2.1" RemoteName="Device 1 (EtherCAT)" InfoImageId="2">
-				<Name>Device 1 (EtherCAT)</Name>
+			<Device Id="1" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="10.10.20.20.2.1" RemoteName="LAN ECT (EtherCAT)" InfoImageId="2">
+				<Name>LAN ECT (EtherCAT)</Name>
 				<AddressInfo>
 					<Pnp>
 						<DeviceDesc></DeviceDesc>
@@ -252,13 +338,96 @@
 						</PlcDataTypes>
 					</EtherCAT>
 				</Box>
-				<EtherCAT/>
+				<Box Id="2" BoxType="9099" BoxFlags="#x00000020">
+					<Name>Drive 2 (CMMT-AS)</Name>
+					<ImageId>1001</ImageId>
+					<EtherCAT SlaveType="2" PdiType="#x0c80" MboxDataLinkLayer="true" StateMBoxPolling="true" UnsupportedFrmw="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="1" FoeType="1" VendorId="#x0000001d" ProductCode="#x007b1a95" RevisionNo="#x00000006" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="CMMT-AS" Desc="CMMT-AS" PortABoxInfo="#x01000001">
+						<SyncMan>001200022600010001000000220000020002001226010000</SyncMan>
+						<SyncMan>001400022200010002000000220000020002001422010000</SyncMan>
+						<SyncMan>001018006400010003000000000000000000001064010000</SyncMan>
+						<SyncMan>00110e002000010004000000000000000000001120010000</SyncMan>
+						<Fmmu>0000000000000000001000020100000001000000000000000000000000000000</Fmmu>
+						<Fmmu>0000000000000000001100010100000002000000000000000000000000000000</Fmmu>
+						<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+						<SwitchPortData>00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
+						<BootStrapData>0010000400180004</BootStrapData>
+						<DcData>0003000000000000000000000000000001000000000000000000000000000000</DcData>
+						<DcMode>446353796e6300000000000000000000444320666f722073796e6368726f6e697a6174696f6e00000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
+						<DcMode>44634f66660000000000000000000000444320756e757365640000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
+						<Pdo Name="Inputs" Index="#x1a00" Flags="#x0000" SyncMan="3">
+							<Entry Name="Statusword" Index="#x6041">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="Modes of operation display" Index="#x6061">
+								<Type>SINT</Type>
+							</Entry>
+							<Entry Name="Position actual value" Index="#x6064">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Velocity actual value" Index="#x606c">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Torque actual value" Index="#x6077">
+								<Type>INT</Type>
+							</Entry>
+							<Entry>
+								<Type GUID="{18071995-0000-0000-0000-002000000008}">ARRAY [0..0] OF BYTE</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="Diag History" Index="#x1af0" Flags="#x0010">
+							<Entry Name="New Message Available" Index="#x10f3" Sub="#x04">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry>
+								<Type GUID="{18071995-0000-0000-0000-00200000000F}">ARRAY [0..14] OF BIT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="Timestamp" Index="#x1af1" Flags="#x0010">
+							<Entry Name="Timestamp" Index="#x10f8">
+								<Type>ULINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="Outputs" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2">
+							<Entry Name="Controlword" Index="#x6040">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="Modes of operation" Index="#x6060">
+								<Type>SINT</Type>
+							</Entry>
+							<Entry Name="Target position" Index="#x607a">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Profile velocity" Index="#x6081">
+								<Type>UDINT</Type>
+							</Entry>
+							<Entry Name="Target velocity" Index="#x60ff">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Target torque" Index="#x6071">
+								<Type>INT</Type>
+							</Entry>
+							<Entry Name="Velocity offset" Index="#x60b1">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Torque offset" Index="#x60b2">
+								<Type>INT</Type>
+							</Entry>
+							<Entry>
+								<Type GUID="{18071995-0000-0000-0000-002000000008}">ARRAY [0..0] OF BYTE</Type>
+							</Entry>
+						</Pdo>
+						<CoeProfile ProfileNo="402"/>
+					</EtherCAT>
+				</Box>
+				<EtherCAT DcSyncMode="3" EnableVirtualSwitch="true" MaxSwitchPorts="2" MaxSwitchFrames="120"/>
 			</Device>
 		</Io>
 	</Project>
 	<Mappings>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030010"/>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500821000403}" Id="#x02030020"/>
 		<OwnerA Name="TIPC^PlcMatt^PlcMatt Instance">
-			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 1 (3G3AX-MX2-ECT)">
+			<OwnerB Name="TIID^LAN ECT (EtherCAT)^Box 1 (3G3AX-MX2-ECT)">
 				<Link VarA="PlcTask Inputs^GVL.MX2_UDTs_Check._3G3AX_MX2_ECT_Input^InfoData_AdsAddr" VarB="InfoData^AdsAddr"/>
 				<Link VarA="PlcTask Inputs^GVL.MX2_UDTs_Check._3G3AX_MX2_ECT_Input^InfoData_State" VarB="InfoData^State"/>
 				<Link VarA="PlcTask Inputs^GVL.MX2_UDTs_Check._3G3AX_MX2_ECT_Input^WcState_InputToggle" VarB="WcState^InputToggle"/>

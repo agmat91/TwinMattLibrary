@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="MX2_Outputs" Id="{213eda72-cc92-411d-bd4e-a129cf074b9c}">
+    <Declaration><![CDATA[{attribute 'TcTypeSystem'}
+TYPE MX2_Outputs :
+	STRUCT
+		_3G3AX_MX2_ECT_Output AT %Q* : ST_MX2_Outputs;
+	END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

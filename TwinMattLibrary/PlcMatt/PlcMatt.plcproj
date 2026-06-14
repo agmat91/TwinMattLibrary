@@ -24,7 +24,13 @@
     <Compile Include="DUTs\MX2\MX2_Inputs.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\MX2\MX2_Outputs.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\MX2\ST_MX2_CommandBits.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\MX2\ST_MX2_Outputs.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\MX2\U_MX2_CommandWord.TcDUT">

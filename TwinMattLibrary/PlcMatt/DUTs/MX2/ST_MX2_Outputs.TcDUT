@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_MX2_Outputs" Id="{2b6dd3c6-dc5d-4716-904c-cfc9c28ba124}">
+    <Declaration><![CDATA[{attribute 'pack_mode' := '1'}
+TYPE ST_MX2_Outputs :
+STRUCT
+    uiCommand               : UINT;   // Offset 0,  2 bytes
+    uiFrequencyReference    : UINT;   // Offset 2,  2 bytes
+    diTargetPosition        : DINT;   // Offset 4,  4 bytes, P060
+    udiAccelerationTime     : UDINT;  // Offset 8,  4 bytes, F002
+    udiDecelerationTime     : UDINT;  // Offset 12, 4 bytes, F003
+    uiCoilData0             : UINT;   // Offset 16, 2 bytes
+    uiOutputTerminalSetting : UINT;   // Offset 18, 2 bytes
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

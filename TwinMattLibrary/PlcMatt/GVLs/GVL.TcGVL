@@ -12,6 +12,7 @@ PopupTest2 : FB_TestPopup;
 
 
 MX2_UDTs_Check : _3G3AX_MX2_ECT_A841956B;
+MX2_Outputs : MX2_Outputs;
 
 
 END_VAR
