@@ -10,6 +10,10 @@ Motor2 : FB_Motor;
 PopupTest1 : FB_TestPopup;
 PopupTest2 : FB_TestPopup;
 
+
+MX2_UDTs_Check : _3G3AX_MX2_ECT_A841956B;
+
+
 END_VAR
 
 VAR_GLOBAL PERSISTENT

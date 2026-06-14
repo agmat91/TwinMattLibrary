@@ -21,6 +21,9 @@
     <Compile Include="DUTs\E_MotorStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\MX2\MX2_Inputs.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GVLs\GVL.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -40,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
+    <Folder Include="DUTs\MX2" />
     <Folder Include="GVLs" />
     <Folder Include="POUs\FBs" />
     <Folder Include="VISUs" />

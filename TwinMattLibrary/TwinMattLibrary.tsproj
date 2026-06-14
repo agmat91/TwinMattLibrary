@@ -116,9 +116,16 @@
 		</System>
 		<Plc>
 			<Project GUID="{1A6FE48D-B288-4549-850E-7E97F7FDEA15}" Name="PlcMatt" PrjFilePath="PlcMatt\PlcMatt.plcproj" TmcFilePath="PlcMatt\PlcMatt.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{2962154A-E657-49CE-4608-B4BC47F6B8D9}" TmcPath="PlcMatt\PlcMatt.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{02E32775-1EFC-4C4B-386E-E59DECE26836}" TmcPath="PlcMatt\PlcMatt.tmc">
 					<Name>PlcMatt Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>GVL.MX2_UDTs_Check._3G3AX_MX2_ECT_Input</Name>
+							<Type GUID="{33A1B597-0D78-759C-A1DE-33D224F34F3C}">_3G3AX_MX2_ECT_I_A841956B</Type>
+						</Var>
+					</Vars>
 					<Contexts>
 						<Context>
 							<Id>0</Id>
@@ -242,4 +249,14 @@
 			</Device>
 		</Io>
 	</Project>
+	<Mappings>
+		<OwnerA Name="TIPC^PlcMatt^PlcMatt Instance">
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 1 (3G3AX-MX2-ECT)">
+				<Link VarA="PlcTask Inputs^GVL.MX2_UDTs_Check._3G3AX_MX2_ECT_Input^InfoData_AdsAddr" VarB="InfoData^AdsAddr"/>
+				<Link VarA="PlcTask Inputs^GVL.MX2_UDTs_Check._3G3AX_MX2_ECT_Input^InfoData_State" VarB="InfoData^State"/>
+				<Link VarA="PlcTask Inputs^GVL.MX2_UDTs_Check._3G3AX_MX2_ECT_Input^WcState_InputToggle" VarB="WcState^InputToggle"/>
+				<Link VarA="PlcTask Inputs^GVL.MX2_UDTs_Check._3G3AX_MX2_ECT_Input^WcState_WcState" VarB="WcState^WcState"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
 </TcSmProject>

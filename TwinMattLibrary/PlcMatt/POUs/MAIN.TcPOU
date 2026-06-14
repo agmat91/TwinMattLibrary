@@ -19,6 +19,8 @@ VAR
 	Alr3Ary : ARRAY[0..63] OF BOOL;
 	
 	
+	bTest_MX2 : BOOL;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -45,7 +47,9 @@ Motor2();
 
 PopupTest1();
 PopupTest2();
-]]></ST>
+
+
+bTest_MX2 := GVL.MX2_UDTs_Check._3G3AX_MX2_ECT_Input.WcState_WcState;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

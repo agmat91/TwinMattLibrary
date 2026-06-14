@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="MX2_Inputs" Id="{d3c40b60-d739-484c-a383-2af469a43e6e}">
+    <Declaration><![CDATA[{attribute 'TcTypeSystem'}
+{attribute 'GUID' := '33A1B596-0D78-759C-A1DE-33D224F34F3C'}
+TYPE MX2_Inputs :
+	STRUCT
+		{attribute 'GUID' := '33A1B597-0D78-759C-A1DE-33D224F34F3C'}
+		_3G3AX_MX2_ECT_Input AT %I* : _3G3AX_MX2_ECT_I_A841956B;
+	END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
