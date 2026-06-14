@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="PRG_MX2_Testing" Id="{b06b0446-6bd1-4039-8618-29879db655da}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_MX2_Testing
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+(*
+
+
+
+Notes for positioning
+
+
+A001 = 04
+A002 = 04
+C102 = 03
+P012 = 02
+
+A003 = motor base frequency
+A004 = maximum allowed frequency
+A082 = motor rated voltage
+H003 = motor capacity
+H004 = motor pole number
+H007 = motor rated current
+A044 = 03
+
+P003 = 01
+P004 = 01
+P011 = encoder PPR
+C007 = 85
+
+A051 = 00
+P014 = tune
+P015 = tune
+P017 = tune
+P060 = target position, or written by PDO
+P072 = forward software limit
+P073 = reverse software limit
+P075 = 00
+
+C021 = 23
+
+
+// How to switch to jogging (speed mode) during Simple position Control
+
+P012 = 02    Simple position control enabled
+P075 = 00    Limit mode; SPD does not work with P075 = 01
+A001 = 04    Frequency reference from EtherCAT option
+A002 = 04    RUN command from EtherCAT option
+
+C001…C007 = 73    SPD: Speed/Position switching (then write this to multi function inputs)
+
+SPD = manual speed/jog mode
+SPD OFF = simple position mode
+
+
+*)]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

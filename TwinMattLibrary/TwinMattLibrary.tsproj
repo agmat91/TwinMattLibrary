@@ -162,7 +162,7 @@
 					<EtherCAT SlaveType="2" PdiType="#x0c09" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="13" VendorId="#x00000083" ProductCode="#x00000053" RevisionNo="#x00010001" InfoDataAddr="true" DdTime0420="10000" EnableWdDivider0400="true" EnableWdTime0410="true" EnableWdTime0420="true" TimeoutMailbox2="2000" PortPhys="17" CreateDeviceDataType="true" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="3G3AX-MX2-ECT EtherCAT Communication Unit for 3G3MX2" Desc="3G3AX-MX2-ECT" PortABoxInfo="#x00ffffff">
 						<SyncMan>001810012600010001000000280010011001001826010000</SyncMan>
 						<SyncMan>001c10012200010002000000280010011001001c22010000</SyncMan>
-						<SyncMan>001110006400010003000000000028000000001164010000</SyncMan>
+						<SyncMan>001114006400010003000000000028000000001164010000</SyncMan>
 						<SyncMan>00120d002000010004000000000028000000001220010000</SyncMan>
 						<Fmmu>0000000000000000001100020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001200010100000002000000000000000000000000000000</Fmmu>
@@ -237,7 +237,14 @@
 								<Type>UDINT</Type>
 							</Entry>
 						</Pdo>
-						<Pdo Name="4th receive PDO Mapping" Index="#x1603" InOut="1" Flags="#x0000" SyncMan="2"/>
+						<Pdo Name="4th receive PDO Mapping" Index="#x1603" InOut="1" Flags="#x0000" SyncMan="2">
+							<Entry Name="Coil Data 0" Index="#x301f" Sub="#x40">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="Output terminal setting" Index="#x301f" Sub="#x52">
+								<Type>UINT</Type>
+							</Entry>
+						</Pdo>
 						<Pdo Name="5th receive PDO Mapping" Index="#x1604" InOut="1" Flags="#x0000" SyncMan="2"/>
 						<CoeProfile ProfileNo="65938"/>
 						<PlcDataTypes>

@@ -24,6 +24,12 @@
     <Compile Include="DUTs\MX2\MX2_Inputs.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\MX2\ST_MX2_CommandBits.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\MX2\U_MX2_CommandWord.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GVLs\GVL.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -38,6 +44,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PRG_MX2_Testing.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

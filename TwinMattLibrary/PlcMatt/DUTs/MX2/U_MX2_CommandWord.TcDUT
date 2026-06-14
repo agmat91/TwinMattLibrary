@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="U_MX2_CommandWord" Id="{c46d0461-98c8-49fa-8066-0ce58be8b7ae}">
+    <Declaration><![CDATA[TYPE U_MX2_CommandWord :
+UNION
+    wValue : WORD;
+    stBits : ST_MX2_CommandBits;
+END_UNION
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_MX2_CommandBits" Id="{73c805df-4995-40ca-b63c-036e270cfb22}">
+    <Declaration><![CDATA[TYPE ST_MX2_CommandBits :
+STRUCT
+    bForwardRun     : BIT;  // Bit 0: forward / position start
+    bReverseRun     : BIT;  // Bit 1: reverse / position start
+
+    bReserved02     : BIT;  // Bit 2
+    bReserved03     : BIT;  // Bit 3
+    bReserved04     : BIT;  // Bit 4
+    bReserved05     : BIT;  // Bit 5
+    bReserved06     : BIT;  // Bit 6
+
+    bFaultReset     : BIT;  // Bit 7
+
+    bReserved08     : BIT;  // Bit 8
+    bReserved09     : BIT;  // Bit 9
+    bReserved10     : BIT;  // Bit 10
+    bReserved11     : BIT;  // Bit 11
+    bReserved12     : BIT;  // Bit 12
+    bReserved13     : BIT;  // Bit 13
+    bReserved14     : BIT;  // Bit 14
+    bReserved15     : BIT;  // Bit 15
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>
