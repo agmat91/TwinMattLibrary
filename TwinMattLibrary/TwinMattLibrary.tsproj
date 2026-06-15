@@ -176,6 +176,68 @@
 				<Elements>15</Elements>
 			</ArrayInfo>
 		</DataType>
+		<DataType>
+			<Name GUID="{7E9B3E7D-D41B-2DF3-4397-741478E1D129}" AutoDeleteType="true" ForceIecDecl="true">CMMT_AS_I_6ECD9C5C</Name>
+			<BitSize>256</BitSize>
+			<SubItem>
+				<Name>WcState_WcState</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>WcState_InputToggle</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>InfoData_State</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>InfoData_AdsAddr</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000042}">AMSADDR</Type>
+				<BitSize>64</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>InfoData_Chn0</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>128</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>InfoData_DcOutputShift</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000009}">DINT</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>160</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>InfoData_DcInputShift</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000009}">DINT</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>192</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{7E9B3E7C-D41B-2DF3-4397-741478E1D129}" AutoDeleteType="true" ForceIecDecl="true">CMMT_AS_6ECD9C5C</Name>
+			<BitSize>256</BitSize>
+			<SubItem>
+				<Name>CMMT_AS_Input</Name>
+				<Type GUID="{7E9B3E7D-D41B-2DF3-4397-741478E1D129}">CMMT_AS_I_6ECD9C5C</Type>
+				<BitSize>256</BitSize>
+				<BitOffs>0</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcDataArea</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+		</DataType>
 	</DataTypes>
 	<ImageDatas>
 		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ffffffffffffffffffffffffb4b4b47d7b7da9a5a89ea09daaaaa7bdbdbcf3f3f3ffffffffffffffffffffffffffffffffffffffffffc5c5c54e4e4eb8bab7545a5800000019191c4545550d0d12000000707071eaeae5ffffffffffffffffffffffffd9d9d9727272dcdedc4a464b210b1f272d2358575751514f23232206060600000000000040423db3a7a7fffffffffffff8f8f84a4a4a0000000505024c4e526e6e8030302b1f1f1f1616160000000000000000000000009bdfdffffafaffffffffffff0000005d5d5da0a1a09da29d82827f1010111717170505054545459b9b9b121212000000605858ffffffffffffffffffb6b5b55e615e41434824001d4f38377a7c7a6566650000003e3e3e7f7f7fb6b6b6494141406161fffffffffffffffffffcfffe120b114c150861e78a43fffdb596aa2d1d260000004141418c8c8ca1a2a21c1616abc4c4fffbfbffffffffffffffffffa398b187483d3d842277728fa7919c3233340000004a4a4a989898a5a5a5141616beb6b6fdfefeffffffffffffffffff898a885d6362b3abb6908f8d5d605e5857582a292a0000001e1e1e9fa0a05f4e4e5b9e9effffffffffffffffffffffffaeaeb02f2f493030291010102626264141415e5e5e9999995b5b5b000000000000150404fffffffffffffffffffffffff4f4f33c3c370303040000002727278989895b5b5b262626363636919a9a2a00008fdadafffafaffffffffffffffffffffffffebebeb5c5c5c6161619191918282828484849494948d8d8e201515477c79887676ffffffffffffffffffffffffffffffffffffffffffe4e4e47272725253537d7b7b5256563035346464699691a1f4f5f3ffffffffffffffffffffffffffffffffffffffffffffffffffffffdcdddd8a8888aaadaddaddddfdfdfdffffffffffffffffff</ImageData>
@@ -341,7 +403,7 @@
 				<Box Id="2" BoxType="9099" BoxFlags="#x00000020">
 					<Name>Drive 2 (CMMT-AS)</Name>
 					<ImageId>1001</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x0c80" MboxDataLinkLayer="true" StateMBoxPolling="true" UnsupportedFrmw="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="1" FoeType="1" VendorId="#x0000001d" ProductCode="#x007b1a95" RevisionNo="#x00000006" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="CMMT-AS" Desc="CMMT-AS" PortABoxInfo="#x01000001">
+					<EtherCAT SlaveType="2" PdiType="#x0c80" MboxDataLinkLayer="true" StateMBoxPolling="true" UnsupportedFrmw="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="1" FoeType="1" VendorId="#x0000001d" ProductCode="#x007b1a95" RevisionNo="#x00000006" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" PortPhys="17" IdentificationAdo="308" CreateDeviceDataType="true" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="CMMT-AS" Desc="CMMT-AS" PortABoxInfo="#x01000001">
 						<SyncMan>001200022600010001000000220000020002001226010000</SyncMan>
 						<SyncMan>001400022200010002000000220000020002001422010000</SyncMan>
 						<SyncMan>001018006400010003000000000000000000001064010000</SyncMan>
@@ -417,6 +479,9 @@
 							</Entry>
 						</Pdo>
 						<CoeProfile ProfileNo="402"/>
+						<PlcDataTypes>
+							<PlcDataType GUID="{7E9B3E7C-D41B-2DF3-4397-741478E1D129}">CMMT_AS_6ECD9C5C</PlcDataType>
+						</PlcDataTypes>
 					</EtherCAT>
 				</Box>
 				<EtherCAT DcSyncMode="3" EnableVirtualSwitch="true" MaxSwitchPorts="2" MaxSwitchFrames="120"/>

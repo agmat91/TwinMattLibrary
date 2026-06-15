@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_CMMT_DriveToPlc" Id="{489eb34f-e74e-4ad9-ad7c-2561e841909b}">
+    <Declaration><![CDATA[{attribute 'pack_mode' := '1'}
+TYPE ST_CMMT_DriveToPlc :
+STRUCT
+    wStatusword               : UINT;     // 6041:00
+    nModesOfOperationDisplay  : SINT;     // 6061:00
+    diPositionActual          : DINT;     // 6064:00
+    diVelocityActual          : DINT;     // 606C:00
+    iTorqueActual             : INT;      // 6077:00
+    byPadding                 : BYTE;
+
+    udiBrake1Status           : UDINT;    // 2150:05
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,666 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="PRG_CMMT_AS" Id="{bbd6a5c8-f8db-448d-b188-8add5d730760}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_CMMT_AS
+VAR
+	
+stCMMT_In : ST_CMMT_DriveToPlc;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+
+
+// EtherCAT DIP Switch Configuration
+SW1    SW2    SW3
+ 0      1      0
+OFF     ON    OFF
+
+
+
+Beckhoff EtherCAT master
+          │
+          ▼
+CMMT-AS [XF1 IN]
+CMMT-AS [XF2 OUT]
+          │
+          ▼
+Next EtherCAT slave
+
+*)
+
+(*
+CMMT-AS — CiA 402 motion start behaviour
+
+```
+There is no separate universal "Start" PDO.
+
+The function of Controlword bits 4...6 depends on the operating
+mode selected with object 6060h "Modes of operation".
+
+Always wait until object 6061h "Modes of operation display"
+confirms the requested mode before issuing a motion command.
+
+---------------------------------------------------------------
+MODE 1 — PROFILE POSITION
+---------------------------------------------------------------
+
+6060h := 1
+
+The CMMT generates the position trajectory internally.
+
+Before starting:
+  1. Write Target position 607Ah.
+  2. Write Profile velocity 6081h.
+  3. Write acceleration/deceleration, when required.
+  4. Make sure Controlword bit 4 is FALSE.
+
+Start positioning with a rising edge of Controlword bit 4:
+
+    Bit 4: FALSE -> TRUE
+
+Relevant Controlword bits:
+  Bit 4 = New set-point / start positioning
+  Bit 5 = Change set-point immediately
+  Bit 6 = 0: absolute position
+          1: relative position
+  Bit 8 = Halt
+
+Position-command handshake:
+  1. Set bit 4.
+  2. Wait for Statusword bit 12 = TRUE
+     (set-point acknowledged).
+  3. Clear Controlword bit 4.
+  4. Wait for Statusword bit 12 = FALSE.
+  5. Wait for Statusword bit 10 = TRUE
+     (target reached).
+
+Merely changing Target position 607Ah does not start a movement.
+A new FALSE-to-TRUE transition of Controlword bit 4 is required
+for every new positioning command.
+
+---------------------------------------------------------------
+MODE 3 — PROFILE VELOCITY / JOG
+---------------------------------------------------------------
+
+6060h := 3
+
+There is no separate Start bit in Profile Velocity mode.
+
+Movement is controlled directly by Target velocity 60FFh:
+
+    Target velocity > 0  : move in positive direction
+    Target velocity < 0  : move in negative direction
+    Target velocity = 0  : decelerate to standstill
+
+Therefore, jogging is active while a non-zero signed target
+velocity is being commanded.
+
+Controlword bit 8 may be used to request Halt.
+
+Before changing from Profile Velocity to another mode:
+  1. Command Target velocity := 0.
+  2. Wait until actual velocity is approximately zero.
+  3. Select the new mode in 6060h.
+  4. Wait until 6061h confirms the new mode.
+
+---------------------------------------------------------------
+MODE 6 — HOMING
+---------------------------------------------------------------
+
+6060h := 6
+
+The homing method, direction, speeds and acceleration are
+configured in Festo Automation Suite or through parameters.
+
+Start homing with a rising edge of Controlword bit 4:
+
+    Bit 4: FALSE -> TRUE
+
+Relevant Statusword bits:
+  Bit 12 = Homing attained
+  Bit 13 = Homing error
+
+Keep the homing-start command active while homing is running,
+then clear Controlword bit 4 after homing has completed or failed.
+
+---------------------------------------------------------------
+IMPORTANT
+---------------------------------------------------------------
+
+Controlword bits 4...6 must never be interpreted without first
+considering the active operating mode.
+
+The same physical bit can have a different function in:
+  Mode 1: Profile Position
+  Mode 3: Profile Velocity
+  Mode 6: Homing
+  Mode 8: Cyclic Synchronous Position
+
+Mode 8 must not be used for simple direct PLC positioning unless
+the PLC continuously generates cyclic trajectory set-points.
+```
+
+*)
+
+
+
+
+
+
+
+(*
+
+Reading brake status The values of 2150:05 are: Value Meaning 0 Brake closed 1 Brake open 2 Brake opening 3 Brake closing
+
+*)
+
+
+
+(*
+    =====================================================================
+    CMMT-AS HOLDING BRAKE CONTROL
+    =====================================================================
+
+    EtherCAT / CoE objects used:
+
+        60FE:01    Digital outputs
+        60FE:02    Digital output mask
+        2150:05    Holding brake 1 status
+
+    Brake release command:
+
+        60FE:01 bit 0 = 1
+            Request the holding brake to release/open.
+
+        60FE:01 bit 0 = 0
+            Remove the holding-brake release request.
+
+    Output control mask:
+
+        60FE:02 bit 0 = 1
+            The fieldbus/PLC controls bit 0 of 60FE:01.
+
+        60FE:02 bit 0 = 0
+            The fieldbus/PLC does not control this output bit.
+
+    IMPORTANT:
+
+    The command is called "Brake Release Request" because the PLC is
+    requesting that the CMMT releases the brake. It is not direct proof
+    that the mechanical brake is physically open.
+
+    For a vertical axis, releasing the brake without motor torque or
+    mechanical support can allow the load to fall.
+
+    The manual brake-release command should normally be restricted to
+    commissioning, maintenance or service operation.
+
+    During normal automatic motion, the CMMT should normally coordinate:
+
+        Motor torque enabled
+        -> brake released
+        -> movement allowed
+
+    and:
+
+        Movement stopped
+        -> brake applied
+        -> motor torque disabled
+    =====================================================================
+*)
+
+
+{attribute 'qualified_only'}
+TYPE E_CMMT_BrakeStatus :
+(
+    Closed  := 0,    // Brake is reported closed/applied
+    Open    := 1,    // Brake is reported open/released
+    Opening := 2,    // Brake is currently opening
+    Closing := 3,    // Brake is currently closing
+
+    Invalid := 4     // Value received from drive is not recognised
+);
+END_TYPE
+
+
+FUNCTION_BLOCK FB_CMMT_BrakeControl
+VAR_INPUT
+    (*
+        Enables control of the brake-release-request PDO bit.
+
+        FALSE:
+            The FB clears bit 0 of the output mask.
+            The PLC does not request control of the brake-release bit.
+
+        TRUE:
+            The FB sets bit 0 of 60FE:02.
+            The PLC controls bit 0 of 60FE:01.
+
+        For a manual/service brake-release function, this input would
+        normally be enabled only while the machine is in an authorised
+        service or commissioning mode.
+    *)
+    i_bEnableManualBrakeControl : BOOL;
+
+
+    (*
+        Operator or application request to release the holding brake.
+
+        FALSE:
+            No manual release request.
+
+        TRUE:
+            Request the CMMT to release/open the holding brake.
+
+        This input does not bypass i_bReleasePermitted.
+    *)
+    i_bManualBrakeRelease : BOOL;
+
+
+    (*
+        Application interlock permitting brake release.
+
+        Suggested conditions for a vertical axis include:
+
+            - Safety system permits movement
+            - Axis is mechanically supported, or motor torque is established
+            - Machine is in an authorised operating mode
+            - No active brake-related fault
+            - No conflicting stop or emergency command
+
+        The FB only issues the release request when this input is TRUE.
+    *)
+    i_bReleasePermitted : BOOL;
+
+
+    (*
+        Raw brake status received from object 2150:05.
+
+        Expected values:
+
+            0 = Brake closed
+            1 = Brake open
+            2 = Brake opening
+            3 = Brake closing
+    *)
+    i_udiBrakeStatusRaw : UDINT;
+END_VAR
+
+
+VAR_IN_OUT
+    (*
+        Object 60FE:01 — Digital outputs.
+
+        Only bit 0 is modified by this FB.
+        All other bits are preserved.
+    *)
+    io_udiDigitalOutputs : UDINT;
+
+
+    (*
+        Object 60FE:02 — Digital output mask.
+
+        Only bit 0 is modified by this FB.
+        All other mask bits are preserved.
+    *)
+    io_udiDigitalOutputsMask : UDINT;
+END_VAR
+
+
+VAR_OUTPUT
+    (*
+        TRUE when the PLC currently owns the brake-release bit and is
+        actively sending a release request.
+    *)
+    o_bReleaseRequestActive : BOOL;
+
+
+    (*
+        Decoded brake status.
+    *)
+    o_eBrakeStatus : E_CMMT_BrakeStatus;
+
+
+    (*
+        Individual status outputs for simple use in application logic
+        and HMI displays.
+    *)
+    o_bBrakeClosed  : BOOL;
+    o_bBrakeOpen    : BOOL;
+    o_bBrakeOpening : BOOL;
+    o_bBrakeClosing : BOOL;
+
+
+    (*
+        TRUE while the brake is either opening or closing.
+    *)
+    o_bBrakeTransitioning : BOOL;
+
+
+    (*
+        TRUE when 2150:05 contains one of the documented values 0...3.
+
+        FALSE means that an unexpected value was received.
+    *)
+    o_bBrakeStatusValid : BOOL;
+
+
+    (*
+        TRUE when the operator requested brake release, but an application
+        interlock prevented the request from being sent.
+    *)
+    o_bReleaseRequestBlocked : BOOL;
+END_VAR
+
+
+VAR
+    (*
+        Final internally calculated release request.
+
+        The EtherCAT command is only issued when all three conditions
+        are TRUE.
+    *)
+    bReleaseRequest : BOOL;
+END_VAR
+
+
+VAR CONSTANT
+    (*
+        Bit mask for bit 0.
+
+        This bit is used in both:
+
+            60FE:01 Digital outputs
+            60FE:02 Digital output mask
+    *)
+    C_UDI_BRAKE_RELEASE : UDINT := 16#00000001;
+END_VAR
+
+
+(*
+    =====================================================================
+    CALCULATE THE FINAL BRAKE-RELEASE REQUEST
+    =====================================================================
+
+    The request is accepted only when:
+
+        1. Manual brake control is enabled.
+        2. A brake-release request is present.
+        3. The application permits brake release.
+*)
+bReleaseRequest :=
+    i_bEnableManualBrakeControl
+    AND i_bManualBrakeRelease
+    AND i_bReleasePermitted;
+
+
+(*
+    Indicate when the requested operation has been blocked by an
+    application interlock.
+
+    This can be displayed on the HMI to explain why pressing the
+    brake-release button did not release the brake.
+*)
+o_bReleaseRequestBlocked :=
+    i_bEnableManualBrakeControl
+    AND i_bManualBrakeRelease
+    AND NOT i_bReleasePermitted;
+
+
+(*
+    =====================================================================
+    CONTROL 60FE:02 — DIGITAL OUTPUT MASK
+    =====================================================================
+
+    Setting bit 0 in the mask gives the fieldbus/PLC control over
+    bit 0 of 60FE:01.
+
+    OR is used instead of direct assignment so that any other output-mask
+    bits used elsewhere in the application are not overwritten.
+*)
+IF i_bEnableManualBrakeControl THEN
+
+    io_udiDigitalOutputsMask :=
+        io_udiDigitalOutputsMask OR C_UDI_BRAKE_RELEASE;
+
+ELSE
+
+    (*
+        Remove PLC control of the brake-release-request bit.
+
+        AND NOT clears only bit 0 and preserves all other mask bits.
+    *)
+    io_udiDigitalOutputsMask :=
+        io_udiDigitalOutputsMask AND (NOT C_UDI_BRAKE_RELEASE);
+
+END_IF
+
+
+(*
+    =====================================================================
+    CONTROL 60FE:01 — BRAKE RELEASE REQUEST
+    =====================================================================
+
+    Bit 0 = 1:
+        Request the holding brake to open/release.
+
+    Bit 0 = 0:
+        Remove the manual release request.
+
+    OR and AND NOT are used so that all other digital-output bits remain
+    unchanged.
+*)
+IF bReleaseRequest THEN
+
+    io_udiDigitalOutputs :=
+        io_udiDigitalOutputs OR C_UDI_BRAKE_RELEASE;
+
+ELSE
+
+    io_udiDigitalOutputs :=
+        io_udiDigitalOutputs AND (NOT C_UDI_BRAKE_RELEASE);
+
+END_IF
+
+
+(*
+    Confirm the command that is actually present in the PDO data.
+
+    Both conditions must be true:
+
+        - Output mask bit 0 is enabled.
+        - Digital output bit 0 is set.
+*)
+o_bReleaseRequestActive :=
+    ((io_udiDigitalOutputsMask AND C_UDI_BRAKE_RELEASE) <> 0)
+    AND
+    ((io_udiDigitalOutputs AND C_UDI_BRAKE_RELEASE) <> 0);
+
+
+(*
+    =====================================================================
+    INITIALISE BRAKE STATUS OUTPUTS
+    =====================================================================
+
+    Outputs are reset every PLC cycle before decoding the status.
+
+    This prevents an old TRUE state from remaining latched when the
+    drive changes to another brake state.
+*)
+o_eBrakeStatus          := E_CMMT_BrakeStatus.Invalid;
+
+o_bBrakeClosed          := FALSE;
+o_bBrakeOpen            := FALSE;
+o_bBrakeOpening         := FALSE;
+o_bBrakeClosing         := FALSE;
+o_bBrakeTransitioning   := FALSE;
+o_bBrakeStatusValid     := FALSE;
+
+
+(*
+    =====================================================================
+    DECODE 2150:05 — HOLDING BRAKE 1 STATUS
+    =====================================================================
+
+        Value 0:
+            Brake closed/applied.
+
+        Value 1:
+            Brake open/released.
+
+        Value 2:
+            Brake opening.
+
+        Value 3:
+            Brake closing.
+
+    The opening and closing states are transitional states.
+*)
+CASE i_udiBrakeStatusRaw OF
+
+    0:
+        (*
+            Brake closed/applied.
+
+            The drive reports that the brake-control sequence has reached
+            the closed state.
+        *)
+        o_eBrakeStatus      := E_CMMT_BrakeStatus.Closed;
+        o_bBrakeClosed      := TRUE;
+        o_bBrakeStatusValid := TRUE;
+
+
+    1:
+        (*
+            Brake open/released.
+
+            The drive reports that the brake-control sequence has reached
+            the open state.
+        *)
+        o_eBrakeStatus      := E_CMMT_BrakeStatus.Open;
+        o_bBrakeOpen        := TRUE;
+        o_bBrakeStatusValid := TRUE;
+
+
+    2:
+        (*
+            Brake opening.
+
+            The CMMT is currently executing the configured brake-opening
+            sequence or brake-release delay.
+        *)
+        o_eBrakeStatus          := E_CMMT_BrakeStatus.Opening;
+        o_bBrakeOpening         := TRUE;
+        o_bBrakeTransitioning   := TRUE;
+        o_bBrakeStatusValid     := TRUE;
+
+
+    3:
+        (*
+            Brake closing.
+
+            The CMMT is currently executing the configured brake-closing
+            sequence or brake-application delay.
+        *)
+        o_eBrakeStatus          := E_CMMT_BrakeStatus.Closing;
+        o_bBrakeClosing         := TRUE;
+        o_bBrakeTransitioning   := TRUE;
+        o_bBrakeStatusValid     := TRUE;
+
+
+ELSE
+    (*
+        Unexpected or unsupported value.
+
+        This can indicate:
+
+            - Incorrect PDO mapping
+            - Incorrect data type
+            - Incorrect byte alignment
+            - Firmware/object-version mismatch
+            - Invalid data while EtherCAT is not operational
+    *)
+    o_eBrakeStatus      := E_CMMT_BrakeStatus.Invalid;
+    o_bBrakeStatusValid := FALSE;
+
+END_CASE
+```
+
+## Example call from `MAIN`
+
+```iecst
+PROGRAM MAIN
+VAR
+    fbCMMTBrake : FB_CMMT_BrakeControl;
+
+    // Command from HMI or service controls.
+    bManualBrakeRelease : BOOL;
+
+    // Recommended release interlocks.
+    bServiceMode               : BOOL;
+    bSafetyPermitsRelease      : BOOL;
+    bAxisMechanicallySupported : BOOL;
+END_VAR
+
+
+(*
+    Example for a vertical axis.
+
+    The brake release is permitted only when:
+
+        - The machine is in service mode.
+        - The safety system permits the operation.
+        - The vertical load is mechanically supported.
+
+    Replace these conditions with the interlocks appropriate for your
+    machine risk assessment.
+*)
+fbCMMTBrake(
+    i_bEnableManualBrakeControl := bServiceMode,
+
+    i_bManualBrakeRelease       := bManualBrakeRelease,
+
+    i_bReleasePermitted         :=
+        bSafetyPermitsRelease
+        AND bAxisMechanicallySupported,
+
+    // Object 2150:05 from the CMMT input PDO.
+    i_udiBrakeStatusRaw         := stCMMT_In.udiBrake1Status,
+
+    // Objects 60FE:01 and 60FE:02 in the CMMT output PDO.
+    io_udiDigitalOutputs        := stCMMT_Out.udiDigitalOutputs,
+    io_udiDigitalOutputsMask    := stCMMT_Out.udiDigitalOutputsMask
+);
+```
+
+
+CASE stCMMT_In.udiBrake1Status OF
+    0:
+        o_bBrakeClosed  := TRUE;
+        o_bBrakeOpen    := FALSE;
+        o_bBrakeMoving  := FALSE;
+
+    1:
+        o_bBrakeClosed  := FALSE;
+        o_bBrakeOpen    := TRUE;
+        o_bBrakeMoving  := FALSE;
+
+    2:
+        o_bBrakeClosed  := FALSE;
+        o_bBrakeOpen    := FALSE;
+        o_bBrakeMoving  := TRUE;     // Opening
+
+    3:
+        o_bBrakeClosed  := FALSE;
+        o_bBrakeOpen    := FALSE;
+        o_bBrakeMoving  := TRUE;     // Closing
+
+ELSE
+    o_bBrakeClosed  := FALSE;
+    o_bBrakeOpen    := FALSE;
+    o_bBrakeMoving  := FALSE;
+END_CASE;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

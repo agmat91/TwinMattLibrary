@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_CMMT_PlcToDrive" Id="{2675e6fe-93f0-4abd-b945-e8a7037784be}">
+    <Declaration><![CDATA[{attribute 'pack_mode' := '1'}
+TYPE ST_CMMT_PlcToDrive :
+STRUCT
+    wControlword              : UINT;     // 6040:00
+    nModesOfOperation         : SINT;     // 6060:00
+    diTargetPosition          : DINT;     // 607A:00
+    udiProfileVelocity        : UDINT;    // 6081:00
+    diTargetVelocity          : DINT;     // 60FF:00
+    iTargetTorque             : INT;      // 6071:00
+    diVelocityOffset          : DINT;     // 60B1:00
+    iTorqueOffset             : INT;      // 60B2:00
+    byPadding                 : BYTE;
+
+    udiProfileAcceleration    : UDINT;    // 6083:00
+    udiProfileDeceleration    : UDINT;    // 6084:00
+    udiDigitalOutputs         : UDINT;    // 60FE:01
+    udiDigitalOutputsMask     : UDINT;    // 60FE:02
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

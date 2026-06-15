@@ -18,6 +18,15 @@
     <LibraryReferences>{51965795-c315-4a1a-b11e-a14a93dae06f}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\CMMT_AS\E_CMMT_BrakeStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\CMMT_AS\ST_CMMT_DriveToPlc.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\CMMT_AS\ST_CMMT_PlcToDrive.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\E_MotorStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -52,6 +61,9 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\PRG_CMMT_AS.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\PRG_MX2_Testing.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -59,6 +71,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="DUTs\MX2" />
+    <Folder Include="DUTs\CMMT_AS" />
     <Folder Include="GVLs" />
     <Folder Include="POUs\FBs" />
     <Folder Include="VISUs" />
