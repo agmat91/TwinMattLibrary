@@ -6,9 +6,15 @@
 {attribute 'to_string'}
 TYPE E_CMMT_BrakeStatus :
 (
-	enum_member := 0
+    Closed  := 0,    // Brake is reported closed/applied
+    Open    := 1,    // Brake is reported open/released
+    Opening := 2,    // Brake is currently opening
+    Closing := 3,    // Brake is currently closing
+
+    Invalid := 4     // Value received from drive is not recognised
 );
 END_TYPE
+
 ]]></Declaration>
   </DUT>
 </TcPlcObject>

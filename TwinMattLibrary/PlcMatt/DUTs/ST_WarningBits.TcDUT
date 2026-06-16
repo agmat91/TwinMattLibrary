@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_WarningBits" Id="{8fad79fc-d613-4fc8-843d-7ae043be9342}">
+    <Declaration><![CDATA[TYPE ST_WarningBits :
+STRUCT
+    bEmergencyStop        : BIT; // Bit 0  - Emergency stop active
+    bSafetyGateOpen       : BIT; // Bit 1  - Safety gate is open
+    bAirPressureLow       : BIT; // Bit 2  - Pneumatic pressure too low
+    bDriveFault           : BIT; // Bit 3  - Servo drive reports a fault
+    bMotorOverload        : BIT; // Bit 4  - Motor overload detected
+    bAxisNotHomed         : BIT; // Bit 5  - Axis requires homing
+    bPositionTimeout      : BIT; // Bit 6  - Positioning timeout
+    bCommunicationFault   : BIT; // Bit 7  - Fieldbus communication fault
+
+    bSensor01Fault        : BIT; // Bit 8  - Sensor 01 not detected
+    bSensor02Fault        : BIT; // Bit 9  - Sensor 02 not detected
+    bReserved10           : BIT; // Bit 10 - Reserved
+    bReserved11           : BIT; // Bit 11 - Reserved
+    bReserved12           : BIT; // Bit 12 - Reserved
+    bReserved13           : BIT; // Bit 13 - Reserved
+    bReserved14           : BIT; // Bit 14 - Reserved
+    bReserved15           : BIT; // Bit 15 - Reserved
+
+    // Continue through bit 63...
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

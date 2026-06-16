@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="U_ARRAY_64" Id="{d4fd4ca8-af11-41a3-90af-92ffffb60385}">
+    <Declaration><![CDATA[TYPE U_ARRAY_64 :
+UNION
+	
+	WrnAryWord : ARRAY[0..3] OF WORD;
+	WrnAryDWord : ARRAY[0..1] OF DWORD;
+	WrnAryBit : ARRAY[0..63] OF BOOL;
+	stTest: ST_WarningBits;
+END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

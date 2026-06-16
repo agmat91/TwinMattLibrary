@@ -257,7 +257,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{1A6FE48D-B288-4549-850E-7E97F7FDEA15}" Name="PlcMatt" PrjFilePath="PlcMatt\PlcMatt.plcproj" TmcFilePath="PlcMatt\PlcMatt.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{42DEBBF0-FE60-F99F-346E-1DE4B0B02727}" TmcPath="PlcMatt\PlcMatt.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{157ED696-3CEE-B738-9439-B70EB883921E}" TmcPath="PlcMatt\PlcMatt.tmc">
 					<Name>PlcMatt Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -292,7 +292,7 @@
 			</Project>
 		</Plc>
 		<Io>
-			<Device Id="1" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="10.10.20.20.2.1" RemoteName="LAN ECT (EtherCAT)" InfoImageId="2">
+			<Device Id="1" Disabled="true" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="10.10.20.20.2.1" RemoteName="LAN ECT (EtherCAT)" InfoImageId="2">
 				<Name>LAN ECT (EtherCAT)</Name>
 				<AddressInfo>
 					<Pnp>
@@ -489,8 +489,6 @@
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030010"/>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500821000403}" Id="#x02030020"/>
 		<OwnerA Name="TIPC^PlcMatt^PlcMatt Instance">
 			<OwnerB Name="TIID^LAN ECT (EtherCAT)^Box 1 (3G3AX-MX2-ECT)">
 				<Link VarA="PlcTask Inputs^GVL.MX2_UDTs_Check._3G3AX_MX2_ECT_Input^InfoData_AdsAddr" VarB="InfoData^AdsAddr"/>
