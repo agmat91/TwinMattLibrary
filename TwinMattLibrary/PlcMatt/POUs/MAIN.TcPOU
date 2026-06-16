@@ -19,7 +19,7 @@ VAR
 	Alr3Ary : ARRAY[0..63] OF BOOL;
 	
 	uAlarms : U_ARRAY_64;
-	
+	uUnionTest : U_UNIONN;
 	
 	bTest_MX2 : BOOL;
 	

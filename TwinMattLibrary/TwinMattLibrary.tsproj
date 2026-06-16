@@ -257,7 +257,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{1A6FE48D-B288-4549-850E-7E97F7FDEA15}" Name="PlcMatt" PrjFilePath="PlcMatt\PlcMatt.plcproj" TmcFilePath="PlcMatt\PlcMatt.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{157ED696-3CEE-B738-9439-B70EB883921E}" TmcPath="PlcMatt\PlcMatt.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{BD78A296-607C-8BAF-F6C8-EAAB091F5F35}" TmcPath="PlcMatt\PlcMatt.tmc">
 					<Name>PlcMatt Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">

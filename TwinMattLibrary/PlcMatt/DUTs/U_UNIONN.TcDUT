@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="U_UNIONN" Id="{6047bda2-a4bb-4145-8327-633dc5eb9f28}">
+    <Declaration><![CDATA[TYPE U_UNIONN :
+UNION
+	
+	WrnAryByte : ARRAY[0..7] OF BYTE;
+	WrnAryWord : ARRAY[0..3] OF WORD;
+	WrnAryDWord : ARRAY[0..1] OF DWORD;
+	stTest: ST_WarningBits;
+END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
